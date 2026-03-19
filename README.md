@@ -90,7 +90,7 @@ Kubernetes manifests are included for all services.
 - Recommended to use a cloud Kubernetes cluster for full setup  
 
 
-## 🛠️ Setup & Installation
+## 🛠️ Steps for Implementation
 
 1. Clone Repository:   
 **git clone** https://github.com/Aishwarya-K-R/PatientFlow-Platform.git   
