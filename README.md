@@ -1,4 +1,4 @@
-<img width="1536" height="1024" alt="ChatGPT Image Mar 19, 2026, 05_54_42 PM" src="https://github.com/user-attachments/assets/f284f290-2957-4232-898a-42f40fc0a9b1" />🚀 **PatientFlow Platform : Scalable Cloud-Native Microservices for Healthcare Ops**  
+🚀 **PatientFlow Platform : Scalable Cloud-Native Microservices for Healthcare Ops**  
 
 📌 **Overview**  
 **PatientFlow Platform** is a **cloud-native, microservices-based healthcare backend system** designed to manage patient operations efficiently and scalably.  
@@ -12,6 +12,8 @@ The platform demonstrates **real-world production architecture patterns** includ
 - Containerization & orchestration  
 
 It is built to simulate how modern healthcare platforms **handle patient data, authentication, billing, and system communication at scale.**  
+
+<hr>
 
 🏗️ **Architecture**  
 <img width="700" height="700" alt="ChatGPT Image Mar 19, 2026, 05_54_42 PM" src="https://github.com/user-attachments/assets/e834db75-f226-4d93-a0e7-fa43e3d3983c" />  
@@ -49,6 +51,38 @@ The platform simulates a real healthcare workflow:
 5. **API Gateway** routes all **external requests and handles rate limiting**
 6. **Health checks** ensure service availability
 7. **Metrics** are exposed and monitored in real-time via **Prometheus and Grafana**
+
+🔄 **CI/CD Pipeline**  
+The project includes a fully automated pipeline:
+**1. Workflow:**  
+- Code pushed to repository  
+- GitHub Actions triggers pipeline  
+- Docker images built for each service  
+- Images pushed to Docker Hub  
+**2. Outcome:**  
+- Ready-to-deploy container images  
+- Consistent and automated builds
+
+**☸️ Kubernetes Support**  
+Kubernetes manifests are included for all services.
+⚠️ **Note:**  
+- Full deployment may fail on low-resource systems (e.g., Minikube) due to memory limits.
+- Its recommended to deploy on a cloud Kubernetes cluster for full setup.
+
+🛠️ **Steps for Implementation**  
+1. Clone Repository:  
+- git clone **https://github.com/Aishwarya-K-R/PatientFlow-Platform.git**
+- cd PatientFlow-Platform
+2. Create **.env** file in the project root and provide the data required for **docker-compose.yml** file
+3. For Kubernetes setup, provide the required data in **secrets.yml and config-map.yml** files
+4. Run with Docker Compose: **docker-compose up --build**
+5. Run Kubernetes (based on the setup): **kubectl apply -f Kubernetes/**  
+6. Access the services:
+- **API Gateway:** http://localhost:4004/  
+- **Health Check:** http://localhost:4004/health  
+- **Kafka UI:** http://localhost:8080  
+- **Prometheus:** http://localhost:9090  
+- **Grafana:** http://localhost:3000
 
 
 
