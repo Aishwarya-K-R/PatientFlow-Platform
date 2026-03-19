@@ -52,9 +52,9 @@ The platform simulates a real healthcare workflow:
 6. **Health checks** ensure service availability
 7. **Metrics** are exposed and monitored in real-time via **Prometheus and Grafana**
 
-<h2>🔄 CI/CD Pipeline</h2>
+## 🔄 CI/CD Pipeline
 
-The project includes a fully automated pipeline:
+The project includes a fully automated pipeline:  
 **1. Workflow:**  
 - Code pushed to repository  
 - GitHub Actions triggers pipeline  
@@ -74,13 +74,13 @@ Kubernetes manifests are included for all services.
 
 1. Clone Repository:  
 - git clone **https://github.com/Aishwarya-K-R/PatientFlow-Platform.git**
-- cd PatientFlow-Platform
-2. Create **.env** file in the project root and provide the data required for **docker-compose.yml** file
-3. For Kubernetes setup, provide the required data in **secrets.yml and config-map.yml** files
-4. Run with Docker Compose: **docker-compose up --build**
-5. Run Kubernetes (based on the setup): **kubectl apply -f Kubernetes/**  
-6. Access the services:
-- **API Gateway:** http://localhost:4004/  
+- **cd PatientFlow-Platform**  
+2. Create **.env** file in the project root and provide the data required for **docker-compose.yml** file  
+3. For Kubernetes setup, provide the required data in **secrets.yml and config-map.yml** files  
+4. Run with Docker Compose: **docker-compose up --build**  
+5. Run Kubernetes (based on the setup): **kubectl apply -f Kubernetes/**   
+6. Access the services:  
+- **API Gateway:** http://localhost:4004/   
 - **Health Check:** http://localhost:4004/health  
 - **Kafka UI:** http://localhost:8080  
 - **Prometheus:** http://localhost:9090  
