@@ -17,7 +17,7 @@ It simulates how modern healthcare platforms **handle patient data, authenticati
 
 ## 🏗️ Architecture
 
-<img src="https://github.com/user-attachments/assets/e834db75-f226-4d93-a0e7-fa43e3d3983c" width="700" height="700" alt="Architecture Diagram" />
+<img src="https://github.com/user-attachments/assets/e834db75-f226-4d93-a0e7-fa43e3d3983c" width="750" height="750" alt="Architecture Diagram" />
 
 
 ## 🔧 Core Components
