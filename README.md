@@ -1,6 +1,6 @@
 <h1>🚀 PatientFlow Platform : Scalable Cloud-Native Microservices for Healthcare Ops</h1>
 
-📌 **Overview**  
+<h2>📌 Overview</h2>
 **PatientFlow Platform** is a **cloud-native, microservices-based healthcare backend system** designed to manage patient operations efficiently and scalably.  
 The platform demonstrates **real-world production architecture patterns** including:  
 - Microservices architecture  
@@ -12,12 +12,10 @@ The platform demonstrates **real-world production architecture patterns** includ
 
 It is built to simulate how modern healthcare platforms **handle patient data, authentication, billing, and system communication at scale.**  
 
-<hr>
-
-🏗️ **Architecture**  
+<h2>🏗️ Architecture</h2>
 <img width="700" height="700" alt="ChatGPT Image Mar 19, 2026, 05_54_42 PM" src="https://github.com/user-attachments/assets/e834db75-f226-4d93-a0e7-fa43e3d3983c" />  
 
-🔧 **Core Components**  
+<h2>🔧 Core Components</h2>
 **1. API Gateway:**  
 - Central entry point for all client requests  
 - Handles routing, aggregation, rate limiting and health checks  
@@ -39,7 +37,7 @@ It is built to simulate how modern healthcare platforms **handle patient data, a
 - **CI/CD Pipeline (GitHub Actions)** → Automated build & push  
 - **Kubernetes (Manifests)** → Orchestration-ready setup
 
-⚙️ **System Functionality**  
+<h2>⚙️ System Functionality</h2>
 The platform simulates a real healthcare workflow:
 1. User authentication using **JWT-based RBAC** via Auth Service  
 2. Patient data creation and retrieval  
@@ -51,7 +49,7 @@ The platform simulates a real healthcare workflow:
 6. **Health checks** ensure service availability
 7. **Metrics** are exposed and monitored in real-time via **Prometheus and Grafana**
 
-🔄 **CI/CD Pipeline**  
+<h2>🔄 CI/CD Pipeline</h2>
 The project includes a fully automated pipeline:
 **1. Workflow:**  
 - Code pushed to repository  
