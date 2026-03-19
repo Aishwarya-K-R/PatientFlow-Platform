@@ -54,14 +54,14 @@ The platform simulates a real healthcare workflow:
 
 ## 🔄 CI/CD Pipeline
 
-The project includes a fully automated pipeline:  
-**1. Workflow:**  
-- Code pushed to repository  
-- GitHub Actions triggers pipeline  
-- Docker images built for each service  
-- Images pushed to Docker Hub  
-**2. Outcome:**  
-- Ready-to-deploy container images  
+The project includes a fully automated pipeline:
+**1. Workflow:**
+- Code pushed to repository 
+- GitHub Actions triggers pipeline 
+- Docker images built for each service
+- Images pushed to Docker Hub
+**2. Outcome:**
+- Ready-to-deploy container images
 - Consistent and automated builds
 
 <h2>☸️ Kubernetes Support</h2>  
