@@ -104,4 +104,15 @@ Kubernetes manifests are included for all services.
 - **Health Check:** http://localhost:4004/health  
 - **Kafka UI:** http://localhost:8080  
 - **Prometheus:** http://localhost:9090  
-- **Grafana:** http://localhost:3000  
+- **Grafana:** http://localhost:3000
+
+
+## 📊 Event Streaming via Apacke Kafka
+
+### 🟢 Producer: Patient Service publishes patient events to Kafka   
+<img width="500" height="500" alt="image" src="https://github.com/user-attachments/assets/5f01982f-3439-4f4c-8aff-90b833ea38fb" />   
+
+### 🔵 Consumer: Billing Service listens to events and creates billing account asynchronously
+<img width="500" height="500" alt="image" src="https://github.com/user-attachments/assets/ebf17fd4-2bae-47ba-b86e-172247b41d85" />   
+
+
