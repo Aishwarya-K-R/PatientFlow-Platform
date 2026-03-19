@@ -20,7 +20,7 @@ It is built to simulate how modern healthcare platforms **handle patient data, a
 
 **1. API Gateway:**  
 - Central entry point for all client requests  
-- Handles routing, aggregation, rate limiting and health checks  
+- Handles routing, aggregation, rate limiting and health checks
 **2. Microservices:**  
 - **Auth Service** → Authentication & authorization  
 - **Patient Service** → Patient data management  
