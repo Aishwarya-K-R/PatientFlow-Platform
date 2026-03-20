@@ -98,14 +98,14 @@ Kubernetes manifests are included for all services.
 2. Create **.env** file in the project root and provide the data required for **docker-compose.yml** file  
 3. For Kubernetes setup, provide the required data in **secrets.yml and config-map.yml** files  
 4. Run with Docker Compose: **docker-compose up --build**  
-5. Run Kubernetes (based on the setup): **kubectl apply -f Kubernetes/**   
-6. Access the services:  
+5. Access the services:  
 - **API Gateway:** http://localhost:4004/   
 - **Health Check:** http://localhost:4004/health  
 - **Kafka UI:** http://localhost:8080  
 - **Prometheus:** http://localhost:9090  
 - **Grafana:** http://localhost:3000
-
+6. Run Kubernetes and accesss the services using domain name (based on the setup): **kubectl apply -f Kubernetes/**
+  
 
 ## 📊 Event Streaming via Apacke Kafka
 
