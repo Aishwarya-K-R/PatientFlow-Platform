@@ -19,4 +19,4 @@ COPY --from=build /app/publish .
 
 EXPOSE 9001
 
-ENTRYPOINT ["dotnet", "Patient Management System.dll"]
+ENTRYPOINT ["dotnet", "PMS.dll"]
