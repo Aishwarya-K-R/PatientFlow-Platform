@@ -135,8 +135,8 @@ ollama pull llama3**
 ## 📊 Monitoring & Observability Stack  
 
 ### 🔵 Prometheus: Collects and aggregates real-time metrics across microservices for deep system observability  
-<img width="700" height="700" alt="image" src="https://github.com/user-attachments/assets/b0662457-c002-446c-bf97-d21936efbd02" />
-<img width="700" height="700" alt="image" src="https://github.com/user-attachments/assets/a2e166e9-78c7-49dd-98ee-8d52aa1e6bcb" />
+<img width="700" height="700" alt="image" src="https://github.com/user-attachments/assets/cc54c279-6d43-42c8-af33-5c21153f7fb4" />
+<img width="700" height="700" alt="image" src="https://github.com/user-attachments/assets/519d36f9-1c5a-4d4d-95eb-bf52d752b907" />
   
 ### 🟢 Grafana: Transforms metrics into powerful visual dashboards for real-time insights and performance monitoring
 <img width="800" height="800" alt="image" src="https://github.com/user-attachments/assets/2c53866d-f42f-4b51-8399-1974b614ce09" />
