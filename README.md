@@ -12,9 +12,9 @@ The platform demonstrates **real-world production architecture patterns**, inclu
 - **CI/CD automation** for consistent, production-ready deployments
 - **Containerization & Orchestration** with Docker and Kubernetes
 - **Automated testing** for critical services like Auth and Patient management to ensure reliability
-- **AI-powered LLM integration**, providing an intelligent chatbot that can answer patient-related queries using cached context from Redis and database records
+- **AI-powered LLM integration with RAG** for intelligent, context-aware responses: the system can retrieve relevant **patient data on-demand** and generate **accurate answers**, combining **database context and real-time retrieval from Redis**
 
-It **simulates how modern healthcare platforms** handle authentication, patient data, billing, and system communication **at scale**, now enhanced with **robust testing and AI capabilities** to make the system more reliable and intelligent.
+It simulates how **modern healthcare platforms** handle authentication, patient data, billing, and system communication **at scale**, enhanced with **robust testing, AI, and retrieval-augmented intelligence**.   
 
 
 ## 🏗️ Architecture
@@ -32,6 +32,7 @@ It **simulates how modern healthcare platforms** handle authentication, patient 
 - **Auth Service** → Authentication & authorization, with **automated tests** ensuring robust security and reliability
 - **Patient Service** → Patient data management, with **unit & integration tests** for data consistency
 - **Billing Service** → Billing and transactions, event-driven processing
+- **AI Service / Chatbot** → Handles **LLM-based responses** with **RAG functionality**, combining retrieved patient context from **database and Redis cache for intelligent answers**   
 
 ### 3. Communication Layer
 - **gRPC** → Fast synchronous communication between services  
@@ -39,7 +40,8 @@ It **simulates how modern healthcare platforms** handle authentication, patient 
 
 ### 4. Data Layer
 - **PostgreSQL** → Persistent storage  
-- **Redis** → Caching and fast patient context access, powering **LLM chatbot context**
+- **Redis** → Caching and fast patient context access, **enabling RAG for AI queries**
+- **RAG Layer** → Dynamically retrieves relevant patient information from database/cache for **context-aware LLM responses**
 
 ### 5. Observability
 - **Prometheus** → Metrics collection  
@@ -53,22 +55,23 @@ It **simulates how modern healthcare platforms** handle authentication, patient 
 
 ## ⚙️ System Functionality
 
-The platform simulates a **real-world healthcare workflow**, now enhanced with **robust testing and AI capabilities**:
+The platform simulates a **real-world healthcare workflow**, now enhanced with **robust testing, AI, and RAG capabilities**:
 
 1. User authentication using **JWT-based RBAC** via Auth Service  
 2. Patient data creation and retrieval with **automated test coverage** 
 3. Billing operations triggered via events **(Kafka consumer-producer model)**
 4. Service communication:
-   - **Synchronous → gRPC**
-   - **Asynchronous → Kafka**
-5. **AI-Powered Chatbot:**   
-   - Uses **llama3 LLM integration** to answer patient-related queries   
-   - Fetches **patient context** from **Redis and database** for **intelligent, up-to-date responses**   
-5. **API Gateway:**   
-   - Routes all external requests
-   - Applies rate limiting
-6. Health checks ensure service availability  
-7. Metrics are monitored in real-time via **Prometheus and Grafana**
+- **Synchronous → gRPC**
+- **Asynchronous → Kafka**
+5. **AI-Powered Chatbot (LLM + RAG):**   
+- Uses **LLaMA 3 integration** to answer patient-related queries
+- **Retrieval-Augmented Generation (RAG):** fetches **relevant patient context** from **Redis and database** before generating answers
+- Ensures **context-aware, accurate, and up-to-date responses**   
+6. **API Gateway:**   
+- Routes all external requests
+- Applies rate limiting
+7. Health checks ensure service availability  
+8. Metrics are monitored in real-time via **Prometheus and Grafana**
 
 
 ## 🔄 CI/CD Pipeline
@@ -102,16 +105,19 @@ Kubernetes manifests are included for all services.
 **cd PatientFlow-Platform**   
 2. Create **.env** file in the project root and provide the data required for **docker-compose.yml** file  
 3. For Kubernetes setup, provide the required data in **secrets.yml and config-map.yml** files   
-4. Run Automated Tests: **dotnet test PMS.Tests/PMS.Tests.csproj**   
-5. Run with Docker Compose: **docker-compose up --build**  
-6. Access the services:  
+4. Run Automated Tests: **dotnet test PMS.Tests/PMS.Tests.csproj**
+5. Serve the model and pull it locally:
+**ollama serve   
+ollama pull llama3**  
+6. Run with Docker Compose: **docker-compose up --build**  
+7. Access the services:  
 - **API Gateway:** http://localhost:4004/   
 - **Health Check:** http://localhost:4004/health  
 - **Kafka UI:** http://localhost:8080  
 - **Prometheus:** http://localhost:9090     
 - **Grafana:** http://localhost:3000   
 - **AI-Powered Chatbot:** http://localhost:4004/ai/ask   
-7. Run Kubernetes and accesss the services using domain name (based on the setup): **kubectl apply -f Kubernetes/**
+8. Run Kubernetes and accesss the services using domain name (based on the setup): **kubectl apply -f Kubernetes/**
   
 
 ## 📊 Event Streaming via Apacke Kafka
