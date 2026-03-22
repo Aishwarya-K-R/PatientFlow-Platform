@@ -57,21 +57,24 @@ It simulates how **modern healthcare platforms** handle authentication, patient 
 
 The platform simulates a **real-world healthcare workflow**, now enhanced with **robust testing, AI, and RAG capabilities**:
 
-1. User authentication using **JWT-based RBAC** via Auth Service  
-2. Patient data creation and retrieval with **automated test coverage** 
-3. Billing operations triggered via events **(Kafka consumer-producer model)**
+1. User authentication using **JWT-based RBAC** via **Auth Service**    
+2. **Patient Service:** Patient data creation with **automated tests**, **publishing events to Kafka** for downstream processing  
+3. **Billing operations (event-driven):**  
+- Billing Service **listens to Patient Created events** from Kafka    
+- Automatically **creates a billing account** for the patient  
+- Publishes **billing events to Kafka**, which are then used to **update Redis for AI context**  
 4. Service communication:
 - **Synchronous → gRPC**
 - **Asynchronous → Kafka**
 5. **AI-Powered Chatbot (LLM + RAG):**   
-- Uses **LLaMA 3 integration** to answer patient-related queries
-- **Retrieval-Augmented Generation (RAG):** fetches **relevant patient context** from **Redis and database** before generating answers
-- Ensures **context-aware, accurate, and up-to-date responses**   
+- Uses **LLaMA 3 integration** to answer patient-related queries  
+- **Retrieval-Augmented Generation (RAG):** fetches **up-to-date patient and billing context from Redis and database**  
+- Provides **context-aware, accurate responses** reflecting the latest data  
 6. **API Gateway:**   
 - Routes all external requests
 - Applies rate limiting
-7. Health checks ensure service availability  
-8. Metrics are monitored in real-time via **Prometheus and Grafana**
+7. **Health checks** ensure service availability  
+8. **Metrics** are monitored in real-time via **Prometheus and Grafana**
 
 
 ## 🔄 CI/CD Pipeline
