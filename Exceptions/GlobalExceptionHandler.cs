@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Diagnostics;
-using Patient_Management_System.Exceptions;
 
 namespace Patient_Management_System.Exceptions
 {

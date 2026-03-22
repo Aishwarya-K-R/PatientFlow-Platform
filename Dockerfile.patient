@@ -21,4 +21,4 @@ COPY --from=build /app/publish .
 
 EXPOSE 5244
 
-ENTRYPOINT ["dotnet", "PMS.dll"]
+ENTRYPOINT ["dotnet", "Patient Management System.dll"]

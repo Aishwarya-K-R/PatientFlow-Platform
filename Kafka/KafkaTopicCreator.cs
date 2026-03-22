@@ -1,40 +1,64 @@
 using Confluent.Kafka.Admin;
 using Confluent.Kafka;
 
-public class KafkaTopicCreator
+namespace Patient_Management_System.Kafka
 {
-    public static async Task CreateTopic(string bootstrapServers)
+    public class KafkaTopicCreator(IConfiguration config)
     {
-        var config = new AdminClientConfig
+        private readonly IConfiguration _config = config;
+        public async Task CreateTopics()
         {
-            BootstrapServers = bootstrapServers
-        };
-
-        using var adminClient = new AdminClientBuilder(config).Build();
-
-        try
-        {
-            await adminClient.CreateTopicsAsync(new[]
+            var bootstrapServers = _config["Kafka:BootstrapServers"];
+            
+            var config = new AdminClientConfig
             {
-                new TopicSpecification
+                BootstrapServers = bootstrapServers
+            };
+
+            using var adminClient = new AdminClientBuilder(config).Build();
+
+            try
+            {
+                await adminClient.CreateTopicsAsync(new[]
                 {
-                    Name = "patient",
-                    NumPartitions = 1,
-                    ReplicationFactor = 1
-                }
-            });
+                    new TopicSpecification
+                    {
+                        Name = _config["Kafka:PatientCreatedTopic"],
+                        NumPartitions = 1,
+                        ReplicationFactor = 1
+                    },
+                    new TopicSpecification
+                    {
+                        Name = _config["Kafka:PatientUpdatedTopic"],
+                        NumPartitions = 1,
+                        ReplicationFactor = 1
+                    },
+                    new TopicSpecification
+                    {
+                        Name = _config["Kafka:PatientDeletedTopic"],
+                        NumPartitions = 1,
+                        ReplicationFactor = 1
+                    },
+                    new TopicSpecification
+                    {
+                        Name = _config["Kafka:BillingCreatedTopic"],
+                        NumPartitions = 1,
+                        ReplicationFactor = 1
+                    },
+                });
 
-            Console.WriteLine("Topic created successfully.");
-        }
-        catch (CreateTopicsException e)
-        {
-            if (e.Results[0].Error.Code == ErrorCode.TopicAlreadyExists)
-            {
-                Console.WriteLine("Topic already exists. Continuing...");
+                Console.WriteLine("Topic created successfully.");
             }
-            else
+            catch (CreateTopicsException e)
             {
-                throw;
+                if (e.Results[0].Error.Code == ErrorCode.TopicAlreadyExists)
+                {
+                    Console.WriteLine("Topic already exists. Continuing...");
+                }
+                else
+                {
+                    throw;
+                }
             }
         }
     }

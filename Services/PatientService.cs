@@ -2,7 +2,6 @@ using System.Text.Json;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Caching.Memory;
-using Microsoft.Extensions.Caching.StackExchangeRedis;
 using Patient_Management_System.Data;
 using Patient_Management_System.Exceptions;
 using Patient_Management_System.Kafka;
@@ -10,7 +9,7 @@ using Patient_Management_System.Models;
 
 namespace Patient_Management_System.Services
 {
-    public class PatientService(AppDbContext context, IMemoryCache memoryCache, IDistributedCache redisCache, KafkaProducer kafkaProducer, ILogger<PatientService> logger)
+    public class PatientService(AppDbContext context, IMemoryCache memoryCache, IDistributedCache redisCache, KafkaProducer kafkaProducer, ILogger<PatientService> logger, IConfiguration config, RedisService redis, ContextService contextService)
     {
         private readonly AppDbContext _context = context;
 
@@ -20,7 +19,13 @@ namespace Patient_Management_System.Services
 
         private readonly KafkaProducer _kafkaProducer = kafkaProducer;
 
+        private readonly IConfiguration _config = config;
+
         private readonly ILogger<PatientService> _logger = logger;
+
+        private readonly RedisService _redis = redis;
+
+        private readonly ContextService _contextService = contextService;
 
         public async Task<IEnumerable<Patient>> GetPatientsAsync(string search, string sortCol, string sortDir, int pageNo, int pageSize)
         {
@@ -112,7 +117,7 @@ namespace Patient_Management_System.Services
 
             _context.Patients.Add(newPatient);
             await _context.SaveChangesAsync();
-            await _kafkaProducer.PublishPatientCreatedEvent(newPatient.Id);
+            await _kafkaProducer.PublishAsync(_config["Kafka:PatientCreatedTopic"], new { PatientId = newPatient.Id });
             return newPatient;
         }
 
@@ -139,6 +144,8 @@ namespace Patient_Management_System.Services
 
             await _context.SaveChangesAsync();
 
+            await _kafkaProducer.PublishAsync(_config["Kafka:PatientUpdatedTopic"], new { PatientId = id });
+
             // Invalidate caches
             _memoryCache.Remove($"Patient_{id}");
             await _redisCache.RemoveAsync($"Patient_{id}");
@@ -151,6 +158,8 @@ namespace Patient_Management_System.Services
             var existingPatient = await _context.Patients.FindAsync(id) ?? throw new PatientNotFoundException(id);
             _context.Patients.Remove(existingPatient);
             await _context.SaveChangesAsync();
+            
+            await _kafkaProducer.PublishAsync(_config["Kafka:PatientDeletedTopic"], new { PatientId = id });
 
             // Invalidate caches
             _memoryCache.Remove($"Patient_{id}");

@@ -1,39 +1,29 @@
 using Confluent.Kafka;
 using System.Text.Json;
-using PatientEvent;
 
 namespace Patient_Management_System.Kafka
 {
     public class KafkaProducer
     {
-        private readonly IProducer<string, string> _producer;
-        private readonly string _topic;
+        private readonly IProducer<Null, string> _producer;
 
-        public KafkaProducer(IConfiguration configuration)
+        public KafkaProducer(IConfiguration config)
         {
-            var config = new ProducerConfig
+            var producerConfig = new ProducerConfig
             {
-                BootstrapServers = configuration["Kafka:BootstrapServers"]
+                BootstrapServers = config["Kafka:BootstrapServers"]
             };
 
-            _producer = new ProducerBuilder<string, string>(config).Build();
-            _topic = configuration["Kafka:PatientCreatedTopic"];
+            _producer = new ProducerBuilder<Null, string>(producerConfig).Build();
         }
 
-        public async Task PublishPatientCreatedEvent(int patientId)
+        public async Task PublishAsync(string topic, object message)
         {
-            var patientEvent = new PatientEventRequest
-            {
-                PatientId = patientId,
-                EventType = "PATIENT_CREATED"
-            };
+            var json = JsonSerializer.Serialize(message);
 
-            var message = JsonSerializer.Serialize(patientEvent);
-
-            await _producer.ProduceAsync(_topic, new Message<string, string>
+            await _producer.ProduceAsync(topic, new Message<Null, string>
             {
-                Key = patientId.ToString(),
-                Value = message
+                Value = json
             });
         }
     }

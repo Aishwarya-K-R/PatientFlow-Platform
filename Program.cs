@@ -9,24 +9,28 @@ using Patient_Management_System.Kafka;
 using Patient_Management_System.Services;
 using Serilog;
 using Prometheus;
+using StackExchange.Redis;
+using Patient_Management_System.Models;
 
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Configuration
+    .AddJsonFile("appsettings.json", optional: false)
+    .AddEnvironmentVariables();
 
 // Add services to the container.
 
 var serviceName = builder.Configuration["ServiceName"];
 
-builder.Configuration
-    .AddJsonFile("appsettings.json", optional: false)
-    .AddJsonFile($"appsettings.{serviceName}.json", optional: true)
-    .AddEnvironmentVariables();
-
-var bootstrap = builder.Configuration["Kafka:BootstrapServers"];
-if (serviceName != "Billing")
+if (!string.IsNullOrEmpty(serviceName))
 {
-    await KafkaTopicCreator.CreateTopic(bootstrap);
+    builder.Configuration.AddJsonFile($"appsettings.{serviceName}.json", optional: true);
 }
+
+builder.Services.Configure<AI>(
+    builder.Configuration.GetSection("AI")
+);
 
 builder.Services
     .AddReverseProxy()
@@ -43,6 +47,16 @@ builder.Services.AddStackExchangeRedisCache(options =>
     options.InstanceName = "PMS_";
 });
 
+
+builder.Services.AddSingleton<IConnectionMultiplexer>(sp =>
+{
+    var configuration = builder.Configuration.GetConnectionString("RedisConnection");
+    return ConnectionMultiplexer.Connect(configuration);
+});
+
+builder.Services.AddScoped<ContextService>();
+builder.Services.AddSingleton<RedisService>();
+builder.Services.AddHttpClient<LLMService>();
 builder.Services.AddScoped<AuthService>();
 builder.Services.AddScoped<PatientService>();
 builder.Services.AddScoped<BillingAccountService>();
@@ -79,8 +93,16 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddGrpc();
 builder.Services.AddSingleton<BillingGrpcClient>();
+builder.Services.AddSingleton<KafkaTopicCreator>();
 builder.Services.AddSingleton<KafkaProducer>();
-builder.Services.AddHostedService<KafkaConsumer>();
+if (serviceName == "Billing")
+{
+    builder.Services.AddHostedService<KafkaConsumer>();
+}
+if (serviceName == "AI")
+{
+    builder.Services.AddHostedService<AIKafkaConsumer>();
+}
 builder.Services.AddHttpClient();
 builder.Services.AddHealthChecks();
 
@@ -102,6 +124,13 @@ if (app.Environment.IsDevelopment())
 // app.UseCors("AllowFrontend");
 
 // app.UseHttpsRedirection();
+
+if (serviceName == "Gateway")
+{
+    using var scope = app.Services.CreateScope();
+    var topicCreator = scope.ServiceProvider.GetRequiredService<KafkaTopicCreator>();
+    await topicCreator.CreateTopics();
+}
 
 app.UseExceptionHandler();
 

@@ -29,6 +29,11 @@ spec:
                 secretKeyRef:
                   name: app-secrets
                   key: JWT_SECRET
+            - name: ConnectionStrings__RedisConnection
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: REDIS_CONN
             - name: Kafka__BootstrapServers
               valueFrom:
                 configMapKeyRef:

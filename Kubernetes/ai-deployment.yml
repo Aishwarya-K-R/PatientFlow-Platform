@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ai-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ai-deployment
+  template:
+    metadata:
+      labels:
+        app: ai-deployment
+    spec:
+      containers:
+        - name: ai-deployment
+          image: aishwaryakr/ai-service:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 5000
+          env:
+            - name: ConnectionStrings__DefaultConnection
+              valueFrom:
+                secretKeyRef:
+                  name: app-secrets
+                  key: DB_CONN
+            - name: ConnectionStrings__RedisConnection
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: REDIS_CONN
+            - name: Kafka__BootstrapServers
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: KAFKA_BOOTSTRAP_SERVERS
