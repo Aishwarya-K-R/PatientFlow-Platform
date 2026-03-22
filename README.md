@@ -122,19 +122,21 @@ ollama pull llama3**
 
 ## 📊 Event Streaming via Apacke Kafka
 
-### 🟢 Producer: Patient Service publishes patient events to Kafka   
-<img width="700" height="700" alt="image" src="https://github.com/user-attachments/assets/5f01982f-3439-4f4c-8aff-90b833ea38fb" />   
+### 🟢 Patient Service: Performs CRUD operations on patients and publishes events to Kafka   
+<img width="700" height="700" alt="image" src="https://github.com/user-attachments/assets/f73bba52-fef0-4efa-857f-7ef2410a28ec" />
+ 
+### 🔵 Billing Service: Consumes patient create events, creates billing accounts, and publishes billing events to Kafka  
+<img width="700" height="700" alt="image" src="https://github.com/user-attachments/assets/60e5041c-5839-439e-b83e-db15a614e457" />
 
-### 🔵 Consumer: Billing Service listens to events and creates billing account asynchronously
-<img width="700" height="700" alt="image" src="https://github.com/user-attachments/assets/ebf17fd4-2bae-47ba-b86e-172247b41d85" /> 
+### 🟢 AI Service: Consumes patient and billing events to update Redis cache for RAG-powered LLM responses  
+<img width="700" height="700" alt="image" src="https://github.com/user-attachments/assets/27324373-23ab-4366-a565-1e8eebbb57f3" />
 
 
-## 📊 Monitoring & Observability Stack
+## 📊 Monitoring & Observability Stack  
 
-### 🟢 Prometheus: Collects and aggregates real-time metrics across microservices for deep system observability
+### 🔵 Prometheus: Collects and aggregates real-time metrics across microservices for deep system observability  
 <img width="700" height="700" alt="image" src="https://github.com/user-attachments/assets/b0662457-c002-446c-bf97-d21936efbd02" />
 <img width="700" height="700" alt="image" src="https://github.com/user-attachments/assets/a2e166e9-78c7-49dd-98ee-8d52aa1e6bcb" />
   
-
-### 🔵 Grafana: Transforms metrics into powerful visual dashboards for real-time insights and performance monitoring
+### 🟢 Grafana: Transforms metrics into powerful visual dashboards for real-time insights and performance monitoring
 <img width="800" height="800" alt="image" src="https://github.com/user-attachments/assets/2c53866d-f42f-4b51-8399-1974b614ce09" />
