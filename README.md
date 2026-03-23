@@ -19,7 +19,7 @@ It simulates how **modern healthcare platforms** handle authentication, patient 
 
 ## 🏗️ Architecture
 
-<img src="https://github.com/user-attachments/assets/e834db75-f226-4d93-a0e7-fa43e3d3983c" width="750" height="750" alt="Architecture Diagram" />
+<img width="750" height="750" alt="ChatGPT Image Mar 23, 2026, 10_49_50 AM" src="https://github.com/user-attachments/assets/0b57071c-c1ef-454b-b869-2490c2be0bc1" />
 
 
 ## 🔧 Core Components
