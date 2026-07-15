@@ -1,6 +1,6 @@
 # 🚀 PatientFlow Platform: Cloud-Native Microservices with AI & Kafka for Healthcare Ops
 
-> ℹ️ *This is the v1 prototype. The production-grade rewrite lives at [PatientFlow-Enterprise-Platform](https://github.com/Aishwarya-K-R/PatientFlow-Enterprise-Platform) — see [full details below](#-successor-project).*
+ℹ️ *This is the v1 prototype. The production-grade rewrite lives at [PatientFlow-Enterprise-Platform](https://github.com/Aishwarya-K-R/PatientFlow-Enterprise-Platform) — see [full details below](#-successor-project).*
 
 ## 📌 Overview
 
