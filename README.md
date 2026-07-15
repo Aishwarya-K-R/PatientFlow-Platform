@@ -1,5 +1,7 @@
 # 🚀 PatientFlow Platform: Cloud-Native Microservices with AI & Kafka for Healthcare Ops
 
+> ℹ️ *This is the v1 prototype. The production-grade rewrite lives at [PatientFlow-Enterprise-Platform](https://github.com/Aishwarya-K-R/PatientFlow-Enterprise-Platform) — see [full details below](#-successor-project).*
+
 ## 📌 Overview
 
 **PatientFlow Platform** is an **AI-powered cloud-native, microservices-based healthcare backend system** designed to manage patient operations **efficiently, securely, and scalably**.
@@ -163,3 +165,18 @@ ollama pull llama3**
 <p align="center">
   <img width="800" alt="Grafana dashboard — PatientFlow microservices metrics including request rate, latency, and error rate panels" src="https://github.com/user-attachments/assets/2c53866d-f42f-4b51-8399-1974b614ce09" />
 </p>
+
+## 🚀 Successor project
+
+This repository is the **v1 learning prototype** of PatientFlow.
+
+The production-grade rewrite lives at **[PatientFlow-Enterprise-Platform](https://github.com/Aishwarya-K-R/PatientFlow-Enterprise-Platform)** and adds:
+
+- Real microservices split (`PMS.Auth`, `PMS.Patient`, `PMS.Billing`, `PMS.AI`, `PMS.Gateway`, `PMS.Mcp`) with per-service DbContext
+- Outbox pattern + Kafka retry topics + DLQ for event-driven reliability
+- RAG with **pgvector + Ollama** (semantic search over patient embeddings) replacing prompt-stuffing
+- Full observability: **Loki + Tempo + Prometheus + Grafana** with OpenTelemetry traces end-to-end
+- **MCP server** exposing patient/billing data to AI agents (Claude Desktop, Copilot) with per-agent API keys and a HIPAA-style audit trail
+- Kubernetes deployment for every service (including in-cluster Ollama)
+
+See the [ROADMAP](https://github.com/Aishwarya-K-R/PatientFlow-Enterprise-Platform/blob/main/ROADMAP.md) for the full 8-phase evolution.
